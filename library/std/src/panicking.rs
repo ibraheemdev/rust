@@ -19,7 +19,7 @@ use crate::process;
 use crate::sync::atomic::{AtomicBool, Ordering};
 use crate::sys::stdio::panic_output;
 use crate::sys_common::backtrace::{self, RustBacktrace};
-use crate::sys_common::rwlock::StaticRWLock;
+use crate::sys_common::rwlock::StaticRwLock;
 use crate::sys_common::thread_info;
 use crate::thread;
 
@@ -76,7 +76,7 @@ enum Hook {
     Custom(*mut (dyn Fn(&PanicInfo<'_>) + 'static + Sync + Send)),
 }
 
-static HOOK_LOCK: StaticRWLock = StaticRWLock::new();
+static HOOK_LOCK: StaticRwLock = StaticRwLock::new();
 static mut HOOK: Hook = Hook::Default;
 
 /// Registers a custom panic hook, replacing any that was previously registered.

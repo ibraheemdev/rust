@@ -960,7 +960,7 @@ extern "system" {
     ) -> BOOL;
     pub fn SleepConditionVariableSRW(
         ConditionVariable: PCONDITION_VARIABLE,
-        SRWLock: PSRWLOCK,
+        SRwLock: PSRWLOCK,
         dwMilliseconds: DWORD,
         Flags: ULONG,
     ) -> BOOL;
@@ -968,12 +968,12 @@ extern "system" {
     pub fn WakeConditionVariable(ConditionVariable: PCONDITION_VARIABLE);
     pub fn WakeAllConditionVariable(ConditionVariable: PCONDITION_VARIABLE);
 
-    pub fn AcquireSRWLockExclusive(SRWLock: PSRWLOCK);
-    pub fn AcquireSRWLockShared(SRWLock: PSRWLOCK);
-    pub fn ReleaseSRWLockExclusive(SRWLock: PSRWLOCK);
-    pub fn ReleaseSRWLockShared(SRWLock: PSRWLOCK);
-    pub fn TryAcquireSRWLockExclusive(SRWLock: PSRWLOCK) -> BOOLEAN;
-    pub fn TryAcquireSRWLockShared(SRWLock: PSRWLOCK) -> BOOLEAN;
+    pub fn AcquireSRwLockExclusive(SRwLock: PSRWLOCK);
+    pub fn AcquireSRwLockShared(SRwLock: PSRWLOCK);
+    pub fn ReleaseSRwLockExclusive(SRwLock: PSRWLOCK);
+    pub fn ReleaseSRwLockShared(SRwLock: PSRWLOCK);
+    pub fn TryAcquireSRwLockExclusive(SRwLock: PSRWLOCK) -> BOOLEAN;
+    pub fn TryAcquireSRwLockShared(SRwLock: PSRWLOCK) -> BOOLEAN;
 
     pub fn CompareStringOrdinal(
         lpString1: LPCWSTR,

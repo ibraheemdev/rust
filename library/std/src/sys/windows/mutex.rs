@@ -1,17 +1,17 @@
 //! System Mutexes
 //!
 //! The Windows implementation of mutexes is a little odd and it might not be
-//! immediately obvious what's going on. The primary oddness is that SRWLock is
+//! immediately obvious what's going on. The primary oddness is that SRwLock is
 //! used instead of CriticalSection, and this is done because:
 //!
-//! 1. SRWLock is several times faster than CriticalSection according to
+//! 1. SRwLock is several times faster than CriticalSection according to
 //!    benchmarks performed on both Windows 8 and Windows 7.
 //!
-//! 2. CriticalSection allows recursive locking while SRWLock deadlocks. The
+//! 2. CriticalSection allows recursive locking while SRwLock deadlocks. The
 //!    Unix implementation deadlocks so consistency is preferred. See #19962 for
 //!    more details.
 //!
-//! 3. While CriticalSection is fair and SRWLock is not, the current Rust policy
+//! 3. While CriticalSection is fair and SRwLock is not, the current Rust policy
 //!    is that there are no guarantees of fairness.
 
 use crate::cell::UnsafeCell;
@@ -42,22 +42,22 @@ impl Mutex {
 
     #[inline]
     pub unsafe fn lock(&self) {
-        c::AcquireSRWLockExclusive(raw(self));
+        c::AcquireSRwLockExclusive(raw(self));
     }
 
     #[inline]
     pub unsafe fn try_lock(&self) -> bool {
-        c::TryAcquireSRWLockExclusive(raw(self)) != 0
+        c::TryAcquireSRwLockExclusive(raw(self)) != 0
     }
 
     #[inline]
     pub unsafe fn unlock(&self) {
-        c::ReleaseSRWLockExclusive(raw(self));
+        c::ReleaseSRwLockExclusive(raw(self));
     }
 
     #[inline]
     pub unsafe fn destroy(&self) {
-        // SRWLock does not need to be destroyed.
+        // SRwLock does not need to be destroyed.
     }
 }
 

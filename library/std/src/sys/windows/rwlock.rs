@@ -1,42 +1,42 @@
 use crate::cell::UnsafeCell;
 use crate::sys::c;
 
-pub struct RWLock {
+pub struct RwLock {
     inner: UnsafeCell<c::SRWLOCK>,
 }
 
-pub type MovableRWLock = RWLock;
+pub type MovableRwLock = RwLock;
 
-unsafe impl Send for RWLock {}
-unsafe impl Sync for RWLock {}
+unsafe impl Send for RwLock {}
+unsafe impl Sync for RwLock {}
 
-impl RWLock {
-    pub const fn new() -> RWLock {
-        RWLock { inner: UnsafeCell::new(c::SRWLOCK_INIT) }
+impl RwLock {
+    pub const fn new() -> RwLock {
+        RwLock { inner: UnsafeCell::new(c::SRWLOCK_INIT) }
     }
     #[inline]
     pub unsafe fn read(&self) {
-        c::AcquireSRWLockShared(self.inner.get())
+        c::AcquireSRwLockShared(self.inner.get())
     }
     #[inline]
     pub unsafe fn try_read(&self) -> bool {
-        c::TryAcquireSRWLockShared(self.inner.get()) != 0
+        c::TryAcquireSRwLockShared(self.inner.get()) != 0
     }
     #[inline]
     pub unsafe fn write(&self) {
-        c::AcquireSRWLockExclusive(self.inner.get())
+        c::AcquireSRwLockExclusive(self.inner.get())
     }
     #[inline]
     pub unsafe fn try_write(&self) -> bool {
-        c::TryAcquireSRWLockExclusive(self.inner.get()) != 0
+        c::TryAcquireSRwLockExclusive(self.inner.get()) != 0
     }
     #[inline]
     pub unsafe fn read_unlock(&self) {
-        c::ReleaseSRWLockShared(self.inner.get())
+        c::ReleaseSRwLockShared(self.inner.get())
     }
     #[inline]
     pub unsafe fn write_unlock(&self) {
-        c::ReleaseSRWLockExclusive(self.inner.get())
+        c::ReleaseSRwLockExclusive(self.inner.get())
     }
 
     #[inline]
