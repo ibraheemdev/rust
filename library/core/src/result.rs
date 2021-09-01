@@ -1592,16 +1592,16 @@ impl<T> Result<T, T> {
     /// # Examples
     ///
     /// ```
-    /// #![feature(result_into_ok_or_err)]
+    /// #![feature(result_into_inner)]
     /// let ok: Result<u32, u32> = Ok(3);
     /// let err: Result<u32, u32> = Err(4);
     ///
-    /// assert_eq!(ok.into_ok_or_err(), 3);
-    /// assert_eq!(err.into_ok_or_err(), 4);
+    /// assert_eq!(ok.into_inner(), 3);
+    /// assert_eq!(err.into_inner(), 4);
     /// ```
     #[inline]
-    #[unstable(feature = "result_into_ok_or_err", reason = "newly added", issue = "82223")]
-    pub const fn into_ok_or_err(self) -> T {
+    #[unstable(feature = "result_into_inner", reason = "newly added", issue = "82223")]
+    pub const fn into_inner(self) -> T {
         match self {
             Ok(v) => v,
             Err(v) => v,

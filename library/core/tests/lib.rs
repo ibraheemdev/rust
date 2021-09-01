@@ -59,7 +59,7 @@
 #![feature(never_type)]
 #![feature(unwrap_infallible)]
 #![feature(option_result_unwrap_unchecked)]
-#![feature(result_into_ok_or_err)]
+#![feature(result_into_inner)]
 #![feature(ptr_metadata)]
 #![feature(once_cell)]
 #![feature(unsized_tuple_coercion)]
