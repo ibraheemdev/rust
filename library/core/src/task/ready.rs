@@ -50,7 +50,7 @@ use core::task::Poll;
 ///     # Poll::Ready(())
 /// # }
 /// ```
-#[stable(feature = "ready_macro", since = "1.56.0")]
+#[unstable(feature = "ready_macro", issue = "70922")]
 #[rustc_macro_transparency = "semitransparent"]
 pub macro ready($e:expr) {
     match $e {
